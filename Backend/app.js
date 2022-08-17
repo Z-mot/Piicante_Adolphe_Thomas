@@ -1,7 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const app = express();
+const path = require("path");
 const userRoutes = require("./Routes/user");
+const sauceRoutes = require("./Routes/sauce");
+const app = express();
 
 mongoose.connect("mongodb+srv://Thomas:Piicante@cluster0.vyp4r4a.mongodb.net/?retryWrites=true&w=majority")
     .then(() => console.log("Connexion à MongoDB Atlas réussi :D"))
@@ -16,6 +18,9 @@ app.use((req, res, next) => {
     next();
 });
 
+
+app.use("/api/sauces", sauceRoutes);
 app.use("/api/auth", userRoutes);
+app.use("/Images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;
