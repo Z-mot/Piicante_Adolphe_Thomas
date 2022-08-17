@@ -12,7 +12,7 @@ ainsi que de renommer le fichier image*/
 const storage = multer.diskStorage({
     //choisir la destination où sera enregistrer le fichier "image"
     destination: (req, file, callback) => {
-        //null pour signifier aucune erreur
+        //null pour signifier aucune erreur suivi du dossier de destination
         callback(null, "Images");
     },
     //renommer le fichier dans un format standardisé
