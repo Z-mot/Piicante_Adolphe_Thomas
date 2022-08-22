@@ -63,6 +63,13 @@ exports.modifySauce = (req, res , next) => {
                 //ici non donc code 403 non autorisé
                 res.status(403).json({ message : "Non Autorisé" })
             } else {
+                //ici nous récupérons le nom de l'image à supprimer
+                const filename = sauce.imageUrl.split("/Images/")[1];
+                /*là nous utilisons la fonction unlink du package fs pour supprimer l'image venant d'être modifiée */
+                if (req.file) {
+                fs.unlink(`Images/${filename}`, (err) => {
+                    if (err) throw err;
+                })}
                 // sinon on enregistre les modification dans la BDD
                 Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
                     .then(() => res.status(200).json({ message: "Sauce modifiée !" }))
